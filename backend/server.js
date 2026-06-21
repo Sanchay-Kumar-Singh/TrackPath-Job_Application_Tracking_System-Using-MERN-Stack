@@ -18,7 +18,6 @@ const app = express();
  */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://track-path-job-application-tracking-pi.vercel.app",
 ];
 
 app.use(
