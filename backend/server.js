@@ -11,27 +11,30 @@ connectDB();
 
 const app = express();
 
-// CORS
+/* ---------------- CORS (PRODUCTION READY) ---------------- */
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      process.env.CLIENT_URL,
+      "http://localhost:5173",
+      "https://track-path-job-application-tracking-kappa.vercel.app"
+    ],
     credentials: true,
   })
 );
 
-// Body parser
+/* ---------------- BODY PARSER ---------------- */
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Static files
+/* ---------------- STATIC FILES ---------------- */
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Server check
+/* ---------------- ROUTES ---------------- */
 app.get("/", (req, res) => {
   res.send("🚀 Job Tracker Backend is LIVE");
 });
 
-// Health check
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
@@ -41,19 +44,22 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/cities", require("./routes/cityRoutes"));
 app.use("/api/sectors", require("./routes/sectorRoutes"));
 app.use("/api/companies", require("./routes/companyRoutes"));
 
-// Error handling
+/* ---------------- ERROR HANDLING ---------------- */
 app.use(notFound);
 app.use(errorHandler);
 
-// Start server
-const PORT = process.env.PORT || 5000;
+/* ---------------- VERCEL SAFE EXPORT ---------------- */
+module.exports = app;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+/* ---------------- LOCAL SERVER ONLY ---------------- */
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+}
