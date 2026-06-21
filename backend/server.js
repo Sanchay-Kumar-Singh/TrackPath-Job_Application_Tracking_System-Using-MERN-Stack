@@ -17,14 +17,28 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded photos and resumes
+// Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Root Route
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>🚀 Job Tracker API is Live</h1>
+    <p>Backend server is running successfully.</p>
+    <p>API Health Check: <a href="/api/health">/api/health</a></p>
+  `);
+});
+
+// Health Check Route
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", message: "Job Tracker API is running" });
+  res.json({
+    status: "ok",
+    message: "Job Tracker API is running",
+  });
 });
 
 app.use("/api/auth", require("./routes/authRoutes"));
@@ -38,5 +52,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
