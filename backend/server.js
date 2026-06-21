@@ -11,27 +11,23 @@ connectDB();
 
 const app = express();
 
-/**
- * ✅ FIXED CORS CONFIGURATION (IMPORTANT)
- * - No /login or /register in origin
- * - Must match frontend EXACT domain only
- */
+
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://track-path-job-application-tracking.vercel.app/",
+  "https://track-path-job-application-tracking.vercel.app",
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
-      } else {
-        return callback(new Error("CORS Not Allowed: " + origin));
       }
+
+      // IMPORTANT: don't throw error (prevents Vercel issues)
+      return callback(null, false);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -39,29 +35,22 @@ app.use(
   })
 );
 
-/**
- * IMPORTANT: Handle preflight requests
- */
+// Preflight
 app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploads
+// Static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-/**
- * Routes
- */
+// Routes
 app.get("/", (req, res) => {
   res.send("🚀 Job Tracker API is Live");
 });
 
 app.get("/api/health", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "Job Tracker API running successfully",
-  });
+  res.json({ status: "ok" });
 });
 
 app.use("/api/auth", require("./routes/authRoutes"));
@@ -69,9 +58,7 @@ app.use("/api/cities", require("./routes/cityRoutes"));
 app.use("/api/sectors", require("./routes/sectorRoutes"));
 app.use("/api/companies", require("./routes/companyRoutes"));
 
-/**
- * Error handlers
- */
+// Error handling
 app.use(notFound);
 app.use(errorHandler);
 
