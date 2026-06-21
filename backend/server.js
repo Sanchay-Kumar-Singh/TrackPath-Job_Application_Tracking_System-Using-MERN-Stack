@@ -2,42 +2,65 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
-
 connectDB();
 
 const app = express();
 
+/**
+ * ✅ FIXED CORS CONFIGURATION (IMPORTANT)
+ * - No /login or /register in origin
+ * - Must match frontend EXACT domain only
+ */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://track-path-job-application-tracking-pi.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("CORS Not Allowed: " + origin));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+/**
+ * IMPORTANT: Handle preflight requests
+ */
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded files
+// Serve uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Root Route
+/**
+ * Routes
+ */
 app.get("/", (req, res) => {
-  res.send(`
-    <h1>🚀 Job Tracker API is Live</h1>
-    <p>Backend server is running successfully.</p>
-    <p>API Health Check: <a href="/api/health">/api/health</a></p>
-  `);
+  res.send("🚀 Job Tracker API is Live");
 });
 
-// Health Check Route
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
-    message: "Job Tracker API is running",
+    message: "Job Tracker API running successfully",
   });
 });
 
@@ -46,6 +69,9 @@ app.use("/api/cities", require("./routes/cityRoutes"));
 app.use("/api/sectors", require("./routes/sectorRoutes"));
 app.use("/api/companies", require("./routes/companyRoutes"));
 
+/**
+ * Error handlers
+ */
 app.use(notFound);
 app.use(errorHandler);
 
