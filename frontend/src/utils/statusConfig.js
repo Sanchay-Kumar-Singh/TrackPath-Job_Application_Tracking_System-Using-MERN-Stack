@@ -1,6 +1,6 @@
 export const RESPONSE_OPTIONS = ["Pending", "Positive", "Negative"];
 export const PROCESS_OPTIONS = ["Not Started", "Ongoing", "Selected", "Rejected"];
-export const TYPE_OPTIONS = ["Walk-in", "Online", "Referral", "Consultancy", "Other"];
+export const TYPE_OPTIONS = ["Walk-in", "Online", "Referral", "Linkedin", "Other"];
 
 export const responseStyles = {
   Positive: "bg-positive-50 text-positive-700 border-positive-200",

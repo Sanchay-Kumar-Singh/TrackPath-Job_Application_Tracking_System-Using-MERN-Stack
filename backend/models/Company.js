@@ -24,7 +24,7 @@ const companySchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["Walk-in", "Online", "Referral", "Consultancy", "Other"],
+      enum: ["Walk-in", "Online", "Referral", "Linkedin", "Other"],
       default: "Walk-in",
     },
     applied: {
