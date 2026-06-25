@@ -213,3 +213,6 @@ All `Private` routes require an `Authorization: Bearer <token>` header.
 - **Frontend**: deploy to Vercel or Netlify. Set `VITE_API_URL` to your deployed backend's URL.
 - **Database**: use MongoDB Atlas for a free hosted cluster — update `MONGO_URI` accordingly.
 - Update `CLIENT_URL` in the backend `.env` to your deployed frontend URL (for CORS).
+
+
+*✅Built By - Sanchay Kumar Singh*
