@@ -3,7 +3,6 @@
 A full-stack job application tracker built with **MongoDB, Express, React, Node.js** and **Tailwind CSS**.
 Organize your job search by **City → Sector → Company**, track applied status, recruiter response,
 and interview process for every company — with a secure, JWT-authenticated personal profile.
-
 ---
 
 ## Features
