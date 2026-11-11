@@ -48,6 +48,8 @@ const skillFieldConfig = [
   { key: "skillsDatabases", label: "Databases", icon: Database, placeholder: "MongoDB, MySQL, PostgreSQL" },
   { key: "skillsTools", label: "Tools & Platforms", icon: Wrench, placeholder: "Git, GitHub, Postman, Vercel, VS Code" },
   { key: "skillsCore", label: "Core Concepts", icon: Cpu, placeholder: "DSA, OOP, DBMS, Computer Networks, OS" },
+    { key: "skillsAi", label: "Artifical Intelligence", icon: Cpu, placeholder: "LLMs, Google Gemini API, LangChain, RAG, FAISS, Hugging Face, Prompt Engineering" },
+      { key: "skillsMl", label: "Machine Learning", icon: Cpu, placeholder: "Scikit-learn, NumPy, Pandas, Matplotlib, Regression, Classification" },
 ];
 
 const ProfilePage = () => {
