@@ -122,6 +122,8 @@ const ProfilePage = () => {
         skillsDatabases: user.skillsDatabases || "",
         skillsTools: user.skillsTools || "",
         skillsCore: user.skillsCore || "",
+        skillsAi:user.skillsAi || "",
+        skillsMl:user.skillsMl || "",
         linkedin: user.linkedin || "",
         github: user.github || "",
         leetcode: user.leetcode || "",
