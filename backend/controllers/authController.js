@@ -126,6 +126,8 @@ const updateProfile = async (req, res, next) => {
       "skillsDatabases",
       "skillsTools",
       "skillsCore",
+      "skillsAi",
+      "skillsMl",
       "linkedin",
       "github",
       "leetcode",
