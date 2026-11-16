@@ -72,6 +72,8 @@ const ProfilePage = () => {
     skillsDatabases: "",
     skillsTools: "",
     skillsCore: "",
+    skillsAi:" ",
+    skillsMl:" ",
     linkedin: "",
     github: "",
     leetcode: "",
