@@ -53,7 +53,9 @@ const userSchema = new mongoose.Schema(
     skillsBackend: { type: String, default: "" },
     skillsDatabases: { type: String, default: "" },
     skillsTools: { type: String, default: "" },
-    skillsCore: { type: String, default: "" }, // DSA, OOP, DBMS, CN, OS, AI
+    skillsCore: { type: String, default: "" },
+    skillsAi:{type:String, default:""},
+    skillsMl:{type:String, default:""},// DSA, OOP, DBMS, CN, OS, AI
 
     // Projects (editable list, intended for ~2 highlighted projects)
     projects: { type: [projectSchema], default: [] },
